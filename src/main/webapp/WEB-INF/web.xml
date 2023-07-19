@@ -4,15 +4,5 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  
-  <servlet>
-    <servlet-name>hello</servlet-name>
-    <servlet-class>com.tms.FirstServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>hello</servlet-name>
-    <url-pattern>/first</url-pattern>
-  </servlet-mapping>
 
 </web-app>
