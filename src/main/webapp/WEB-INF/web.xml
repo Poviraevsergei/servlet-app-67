@@ -5,4 +5,23 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
+  <filter>
+    <filter-name>filter-67</filter-name>
+    <filter-class>com.tms.filter.LogFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>filter-67</filter-name>
+    <url-pattern>/first</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>first-servlet</servlet-name>
+    <servlet-class>com.tms.FirstServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>first-servlet</servlet-name>
+    <url-pattern>/first</url-pattern>
+  </servlet-mapping>
 </web-app>
