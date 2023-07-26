@@ -13,18 +13,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 
+@WebServlet("/html-test")
 public class FirstServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        req.setAttribute("nameKey", name);
-
-
-        //как вызывать страницы(html, jsp, ftl)
-        getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
+        String fname = req.getParameter("fname");
+        String lname = req.getParameter("lname");
+        Writer writer = resp.getWriter();
+        writer.write("First: " + fname);
+        writer.write("Last: " + lname);
+        writer.close();
     }
 
     @Override
