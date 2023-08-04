@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,9 +23,21 @@ import java.io.Writer;
 public class FirstServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        req.setAttribute("name", name);
-        getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
+        /*Cookie cookie = new Cookie("password","BigBoss");
+        resp.addCookie(cookie);
+        Cookie cookieResult = null;
+        Cookie[] arrayCookie = req.getCookies();
+        for (Cookie cookie : arrayCookie) {
+            if ("password".equals(cookie.getName())) {
+                cookieResult = cookie;
+                break;
+            }
+        }
+        Writer writer = resp.getWriter();
+        writer.write(cookieResult.getValue());*/
+        String[] names = new String[]{"Sasha", "Anton", "Marina"};
+        req.setAttribute("names", names);
+        getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
     @Override
