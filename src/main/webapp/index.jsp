@@ -6,7 +6,7 @@
 </head>
 <body>
 <p>name: ${name}</p>
-<p>name: <%= request.getParameter("name") %></p>
+<p>name: <%= request.getAttribute("name") %></p>
 <p>from cookie: ${cookie.password.value}</p>
 
 <c:out value="This is our message"/>

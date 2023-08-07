@@ -38,6 +38,7 @@ public class FirstServlet extends HttpServlet {
         String[] names = new String[]{"Sasha", "Anton", "Marina"};
         req.setAttribute("names", names);
         getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+    System.gc();
     }
 
     @Override
