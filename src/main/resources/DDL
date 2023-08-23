@@ -1,0 +1,95 @@
+create table public.person
+(
+    id          bigserial
+        primary key,
+    first_name  varchar(50),
+    second_name varchar(50),
+    age         integer default 0 not null,
+    is_married  boolean default false,
+    created     timestamp         not null
+);
+
+alter table public.person
+    owner to postgres;
+
+create trigger t_person
+    after insert or update or delete
+    on public.person
+    for each row
+execute procedure public.add_to_log();
+
+create table public.animal
+(
+    id   bigserial
+        constraint animal_pk
+            primary key,
+    name varchar(10) not null
+);
+
+alter table public.animal
+    owner to postgres;
+
+create table public.logs
+(
+    id    bigserial
+        constraint logs_pk
+            primary key,
+    text  text,
+    added timestamp
+);
+
+alter table public.logs
+    owner to postgres;
+
+create table public.passport
+(
+    id              bigserial
+        constraint passport_pk
+            primary key,
+    passport_number varchar not null,
+    person_id       integer not null
+        constraint passport_person_id_fk
+            references public.person
+            on update cascade on delete cascade
+);
+
+alter table public.passport
+    owner to postgres;
+
+create unique index passport_person_id_uindex
+    on public.passport (person_id);
+
+create table public.contact
+(
+    id                 bigint default nextval('"Contact_id_seq"'::regclass) not null
+        constraint contact_pk
+            primary key,
+    telephone_number   varchar(50),
+    telephone_provider varchar(50),
+    person_id          integer                                              not null
+        constraint contact_person_id_fk
+            references public.person
+            on update cascade on delete cascade
+);
+
+alter table public.contact
+    owner to postgres;
+
+create table public.l_animal_person
+(
+    id        bigserial
+        constraint l_animal_person_pk
+            primary key,
+    person_id integer not null
+        constraint l_animal_person_person_id_fk
+            references public.person
+            on update cascade on delete cascade,
+    animal_id integer not null
+        constraint l_animal_person_animal_id_fk
+            references public.animal
+            on update cascade on delete cascade
+);
+
+alter table public.l_animal_person
+    owner to postgres;
+
