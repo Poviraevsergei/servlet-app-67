@@ -38,7 +38,7 @@ public class PersonRepository {
         return list;
     }
 
-    public Boolean create(Person person) throws SQLException {
+    public Boolean create(Person person) {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO person(id,first_name,second_name,age,is_married,created)" +
                     "VALUES (DEFAULT,?,?,?,?,?)");
