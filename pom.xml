@@ -41,6 +41,22 @@
             <artifactId>postgresql</artifactId>
             <version>42.5.1</version>
         </dependency>
+
+        <!-- Spring Core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+
+        <!-- Spring Context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
