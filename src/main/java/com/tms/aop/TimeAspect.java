@@ -3,6 +3,7 @@ package com.tms.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
@@ -11,7 +12,11 @@ import java.time.LocalTime;
 @Component
 public class TimeAspect {
 
-    @Around(value = "execution(public String com.tms.service_aop.*.*(*,*))")
+    @Pointcut(value = "execution(public String com.tms.service_aop.*.*(*,*))")
+    void somePointCut(){
+    }
+
+    @Around("somePointCut()")
     void sendInfoBeforeMethod(ProceedingJoinPoint joinPoint) throws Throwable {
         //1. Посмотреть время
         LocalTime startTime = LocalTime.now();
