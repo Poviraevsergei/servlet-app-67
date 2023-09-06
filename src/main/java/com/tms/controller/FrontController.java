@@ -7,15 +7,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
-@WebServlet("/front/*")
+@WebServlet("/*")
 public class FrontController extends HttpServlet {
     private final PersonController pc = new PersonController();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String jspPage = dispatcher(req, resp, "GET");
-        getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
+        if(!jspPage.equals("/")){
+            getServletContext().getRequestDispatcher(jspPage).forward(req, resp);
+        }
     }
 
     @Override
@@ -29,9 +32,9 @@ public class FrontController extends HttpServlet {
 
         if ("GET".equals(httpMethod)) {
             return switch (httpPath) {
-                case "/front/user" -> pc.getAll(request);
-                case "/front/user-by-id" -> pc.getById(request);
-                default -> "/index.jsp";
+                case "/user" -> pc.getAll(request);
+                case "/user-by-id" -> pc.getById(request);
+                default -> "/";
             };
         }
 

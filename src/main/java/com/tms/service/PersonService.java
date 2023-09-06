@@ -3,8 +3,8 @@ package com.tms.service;
 import com.tms.domain.Person;
 import com.tms.repository.PersonRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class PersonService {

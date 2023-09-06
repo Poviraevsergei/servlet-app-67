@@ -1,6 +1,7 @@
 package com.tms.repository;
 
 import com.tms.domain.Person;
+import com.tms.domain.Role;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -56,13 +57,14 @@ public class PersonRepository {
     }
 
     public Person sqlParser(ResultSet result) throws SQLException {
-        Person person = new Person();
+        /*Person person = new Person();
         person.setId(result.getLong("id"));
         person.setFirstName(result.getString("first_name"));
         person.setSecondName(result.getString("second_name"));
         person.setAge(result.getInt("age"));
         person.setIsMarried(result.getBoolean("is_married"));
         person.setCreated(result.getTimestamp("created"));
-        return person;
+        return person;*/
+        return new Person();
     }
 }
