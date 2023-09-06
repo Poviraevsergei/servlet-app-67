@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Component
 public class TimeAspect {
 
-    @Around(value = "within(com.tms.service_aop.*)")
+    @Around(value = "execution(public String com.tms.service_aop.*.*(*,*))")
     void sendInfoBeforeMethod(ProceedingJoinPoint joinPoint) throws Throwable {
         //1. Посмотреть время
         LocalTime startTime = LocalTime.now();

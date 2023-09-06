@@ -14,6 +14,6 @@ public class Main {
         //1. IoC контейнер
         ApplicationContext context = new AnnotationConfigApplicationContext("com.tms");
         AopPersonService aps = (AopPersonService) context.getBean("aopPersonService");
-        aps.getHelloMessage();
+        aps.getHelloMessage("",5);
     }
 }
