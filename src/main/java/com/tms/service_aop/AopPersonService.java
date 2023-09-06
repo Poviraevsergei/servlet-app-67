@@ -1,11 +1,13 @@
 package com.tms.service_aop;
 
+import com.tms.aop.MyFirstTimeAnnotation;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AopPersonService {
 
-    public String getHelloMessage(String x, Integer y) {
+    @MyFirstTimeAnnotation
+    public String getHelloMessage() {
         for (int i = 0; i < 1000_000; i++) {
 
         }
