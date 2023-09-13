@@ -27,7 +27,5 @@ public class Person {
     private Integer age;
     private Boolean isMarried;
     private Timestamp created;
-
-   // @Qualifier(value = "bean-name") автофайр нужного бина
     private Role role;
 }

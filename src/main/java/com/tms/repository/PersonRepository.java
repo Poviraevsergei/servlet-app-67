@@ -41,6 +41,19 @@ public class PersonRepository {
         return list;
     }
 
+    public Person getPersonById(Long id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE id=?");
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return sqlParser(resultSet);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return new Person();
+    }
+
     public Person sqlParser(ResultSet result) throws SQLException {
         Person person = new Person();
         person.setId(result.getLong("id"));

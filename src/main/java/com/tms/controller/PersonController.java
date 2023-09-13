@@ -25,16 +25,20 @@ public class PersonController {
     @GetMapping("/getAll")
     public String getAll(Model model) {
         List<Person> resultList = personService.getAll();
-        if (!resultList.isEmpty()){
+        if (!resultList.isEmpty()) {
             model.addAttribute("result", resultList);
             return "jspPage";
         }
         return "emptyJsp";
     }
 
-    //@RequestParam
-    //@PathVariable
-    //Interseptor
-    //Validation
-    //@Post
+    @GetMapping("/{id}")
+    public String getPersonById(Model model, @PathVariable Long id) {
+        Person resultPerson = personService.getPersonById(id);
+        if (resultPerson.getId() != null) {
+            model.addAttribute("result", resultPerson);
+            return "jspPage";
+        }
+        return "emptyJsp";
+    }
 }

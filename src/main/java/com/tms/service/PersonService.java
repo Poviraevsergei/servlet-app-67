@@ -21,4 +21,7 @@ public class PersonService {
         return personRepository.getAll();
     }
 
+    public Person getPersonById(Long id) {
+        return personRepository.getPersonById(id);
+    }
 }
