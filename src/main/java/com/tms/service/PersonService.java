@@ -2,8 +2,6 @@ package com.tms.service;
 
 import com.tms.domain.Person;
 import com.tms.repository.PersonRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

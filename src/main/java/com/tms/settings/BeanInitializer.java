@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @ComponentScan("com.tms")
 @Configuration
-@EnableWebMvc //Interceptor ON
+@EnableWebMvc //Interceptor and Validation ON
 public class BeanInitializer implements WebMvcConfigurer {
     private final SpringInterceptor springInterceptor;
 
