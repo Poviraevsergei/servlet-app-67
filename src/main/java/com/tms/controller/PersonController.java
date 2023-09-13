@@ -1,49 +1,40 @@
 package com.tms.controller;
 
-
 import com.tms.domain.Person;
 import com.tms.service.PersonService;
-import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+@Controller
+@RequestMapping("/person")
 public class PersonController {
-    private final PersonService personService = new PersonService();
+    public final PersonService personService;
 
-    public String getAll(HttpServletRequest request) {
-        List<Person> resultList = personService.getAll(request);
-        if (resultList.isEmpty()) {
-            return "/emptyJsp.jsp";
-        }
-        return "/jspPage.jsp";
+    public PersonController(PersonService personService) {
+        this.personService = personService;
     }
 
-    public String getById(HttpServletRequest request) {
-        Person person = personService.getById(request);
-        if (person == null) {
-            return "/emptyJsp.jsp";
+    @GetMapping("/getAll")
+    public String getAll(Model model) {
+        List<Person> resultList = personService.getAll();
+        if (!resultList.isEmpty()){
+            model.addAttribute("result", resultList);
+            return "jspPage";
         }
-        return "/jspPage.jsp";
+        return "emptyJsp";
     }
 
-    public String createUser(HttpServletRequest request) {
-        if (!personService.createUser(request)) {
-            return "/emptyJsp.jsp";
-        }
-        return "/jspPage.jsp";
-    }
-
-    public String updateUser(HttpServletRequest request) {
-        if (!personService.updateUser(request)) {
-            return "/emptyJsp.jsp";
-        }
-        return "/jspPage.jsp";
-    }
-
-    public String deleteUser(HttpServletRequest request) {
-        if (!personService.deleteUser(request)) {
-            return "/emptyJsp.jsp";
-        }
-        return "/jspPage.jsp";
-    }
+    //@RequestParam
+    //@PathVariable
+    //Interseptor
+    //Validation
+    //@Post
 }
