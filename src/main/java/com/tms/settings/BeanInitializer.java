@@ -11,7 +11,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @ComponentScan("com.tms")
 @Configuration
-@EnableWebMvc //Interceptor and Validation ON
 public class BeanInitializer implements WebMvcConfigurer {
     private final SpringInterceptor springInterceptor;
 
@@ -22,13 +21,5 @@ public class BeanInitializer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(springInterceptor).addPathPatterns("/person/**");
-    }
-
-    @Bean
-    public InternalResourceViewResolver viewR1esolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
     }
 }
