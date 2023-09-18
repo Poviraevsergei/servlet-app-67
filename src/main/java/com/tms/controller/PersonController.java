@@ -53,11 +53,4 @@ public class PersonController {
         model.addAttribute("result", errors);
         return "jspPage";
     }
-
-    @ExceptionHandler(RuntimeException.class)
-    public String exceptionHandlerMethod(Exception e, Model model) {
-        model.addAttribute("result", "We have exception: " + e);
-        System.out.println("We have exception: " + e);
-        return "jspPage";
-    }
 }
