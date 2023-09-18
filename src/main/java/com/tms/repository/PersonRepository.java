@@ -27,6 +27,9 @@ public class PersonRepository {
     }
 
     public List<Person> getAll() {
+        if (true){
+            throw new RuntimeException();
+        }
         List<Person> list = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM person");

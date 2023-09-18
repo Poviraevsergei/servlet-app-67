@@ -25,7 +25,7 @@ public class BeanInitializer implements WebMvcConfigurer {
     }
 
     @Bean
-    public InternalResourceViewResolver viewResolver() {
+    public InternalResourceViewResolver viewR1esolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/");
         viewResolver.setSuffix(".jsp");

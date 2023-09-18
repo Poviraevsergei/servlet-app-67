@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,13 @@ public class PersonController {
             return "emptyJsp";
         }
         model.addAttribute("result", errors);
+        return "jspPage";
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public String exceptionHandlerMethod(Exception e, Model model) {
+        model.addAttribute("result", "We have exception: " + e);
+        System.out.println("We have exception: " + e);
         return "jspPage";
     }
 }
