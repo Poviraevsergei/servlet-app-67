@@ -28,6 +28,9 @@ public class PersonController {
         List<Person> resultList = personService.getAll();
         if (!resultList.isEmpty()) {
             model.addAttribute("result", resultList);
+            Person p = new Person();
+            p.setFirstName("Deniska");
+            model.addAttribute("person", p);
             return "jspPage";
         }
         return "emptyJsp";
