@@ -2,6 +2,7 @@ package com.tms.repository;
 
 import com.tms.domain.Person;
 import com.tms.domain.Role;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PersonRepository {
@@ -41,17 +43,17 @@ public class PersonRepository {
         return list;
     }
 
-    public Person getPersonById(Long id) {
+    public Optional<Person> getPersonById(Long id) {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE id=?");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             resultSet.next();
-            return sqlParser(resultSet);
+            return Optional.of(sqlParser(resultSet));
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return new Person();
+        return Optional.empty();
     }
 
     public Person sqlParser(ResultSet result) throws SQLException {
@@ -63,5 +65,47 @@ public class PersonRepository {
         person.setIsMarried(result.getBoolean("is_married"));
         person.setCreated(result.getTimestamp("created"));
         return person;
+    }
+
+    public Boolean create(Person person) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("insert into person(id,first_name,second_name,age,is_married,created)" + "VALUES (default,?,?,?,?,?)");
+            statement.setString(1, person.getFirstName());
+            statement.setString(2, person.getSecondName());
+            statement.setInt(3, person.getAge());
+            statement.setBoolean(4, person.getIsMarried());
+            statement.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
+            return statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public Boolean update(Person person) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE person SET first_name = ?, second_name = ?,age = ?,is_married = ?,created = ? WHERE id = ?");
+            statement.setString(1, person.getFirstName());
+            statement.setString(2, person.getSecondName());
+            statement.setInt(3, person.getAge());
+            statement.setBoolean(4, person.getIsMarried());
+            statement.setTimestamp(5, person.getCreated());
+            statement.setLong(6, person.getId());
+            return statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public Boolean deleteById(Long id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM person WHERE id= ?");
+            statement.setLong(1, id);
+            return statement.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }

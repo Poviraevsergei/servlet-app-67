@@ -31,9 +31,8 @@ public class Person {
     @Min(value = 18)
     @Max(value = 120)
     private Integer age;
-    @Email67
-    private String email;
     private Boolean isMarried;
     private Timestamp created;
     private Role role;
+    private Boolean isDeleted;
 }
