@@ -2,21 +2,23 @@ package com.tms.controller;
 
 import com.tms.domain.Person;
 import com.tms.service.PersonService;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,12 +29,15 @@ import java.util.Optional;
 public class PersonController {
     public final PersonService personService;
 
+    public static Logger log = LoggerFactory.getLogger(PersonController.class);
+
     public PersonController(PersonService personService) {
         this.personService = personService;
     }
 
     @GetMapping
     public ResponseEntity<List<Person>> getAll() {
+        log.info("getAll method working!");
         List<Person> resultList = personService.getAll();
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
@@ -46,6 +51,7 @@ public class PersonController {
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
+    @Tag(name = "create-tag")
     @PostMapping
     public ResponseEntity<HttpStatus> create(@RequestBody Person person) {
         return new ResponseEntity<>(personService.createPerson(person) ? HttpStatus.CREATED : HttpStatus.CONFLICT);
@@ -56,8 +62,14 @@ public class PersonController {
         return new ResponseEntity<>(personService.updatePerson(person) ? HttpStatus.NO_CONTENT : HttpStatus.CONFLICT);
     }
 
+    @Operation(summary = "Удаляет пользователя из бд",
+            description = "Берет id, идет в бд и удаляет запись с этой id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "400", description = "Неверный ID"),
+            @ApiResponse(responseCode = "404", description = "id не найдено"),
+            @ApiResponse(responseCode = "204", description = "Значит что успешно удалили")})
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id){
+    public ResponseEntity<HttpStatus> delete(@Parameter(description = "Это id person который хотим удалить") @PathVariable("id") Long id){
         return new ResponseEntity<>(personService.deletePersonById(id) ? HttpStatus.NO_CONTENT : HttpStatus.CONFLICT);
     }
 }

@@ -1,6 +1,7 @@
 package com.tms.domain;
 
 import com.tms.validation.Email67;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.AssertFalse;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 
+@Schema(description = "Этот класс описывает персону")
 @Component
 @Getter
 @ToString

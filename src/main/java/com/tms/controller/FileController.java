@@ -1,5 +1,6 @@
 package com.tms.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -72,6 +73,7 @@ public class FileController {
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
+    @Tag(name = "create-tag")
     @DeleteMapping("/{filename}")
     public ResponseEntity<HttpStatus> deleteFile(@PathVariable String filename) {
         Path path = ROOT_FILE_PATH.resolve(filename);
