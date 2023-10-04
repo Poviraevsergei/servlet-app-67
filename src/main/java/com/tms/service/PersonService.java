@@ -32,7 +32,7 @@ public class PersonService {
         return personRepository.update(person);
     }
 
-    public Boolean deletePersonById(Long id){
-        return personRepository.deleteById(id);
+    public void deletePersonById(Long id){
+        personRepository.deleteById(id);
     }
 }

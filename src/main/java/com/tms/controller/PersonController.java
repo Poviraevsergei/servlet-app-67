@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -35,7 +34,6 @@ public class PersonController {
 
     @GetMapping
     public ResponseEntity<List<Person>> getAll() {
-        log.info("NEW !getAll method working!");
         List<Person> resultList = personService.getAll();
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
@@ -49,7 +47,6 @@ public class PersonController {
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    @Tag(name = "create-tag")
     @PostMapping
     public ResponseEntity<HttpStatus> create(@RequestBody Person person) {
         return new ResponseEntity<>(personService.createPerson(person) ? HttpStatus.CREATED : HttpStatus.CONFLICT);
@@ -68,6 +65,7 @@ public class PersonController {
             @ApiResponse(responseCode = "204", description = "Значит что успешно удалили")})
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> delete(@Parameter(description = "Это id person который хотим удалить") @PathVariable("id") Long id){
-        return new ResponseEntity<>(personService.deletePersonById(id) ? HttpStatus.NO_CONTENT : HttpStatus.CONFLICT);
+        personService.deletePersonById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
