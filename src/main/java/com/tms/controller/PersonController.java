@@ -8,8 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,12 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/person")
 public class PersonController {
     public final PersonService personService;
-
-    public static Logger log = LoggerFactory.getLogger(PersonController.class);
 
     public PersonController(PersonService personService) {
         this.personService = personService;
@@ -37,7 +35,7 @@ public class PersonController {
 
     @GetMapping
     public ResponseEntity<List<Person>> getAll() {
-        log.info("getAll method working!");
+        log.info("NEW !getAll method working!");
         List<Person> resultList = personService.getAll();
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
