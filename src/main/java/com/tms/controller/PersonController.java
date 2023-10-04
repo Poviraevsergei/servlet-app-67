@@ -64,7 +64,7 @@ public class PersonController {
             @ApiResponse(responseCode = "404", description = "id не найдено"),
             @ApiResponse(responseCode = "204", description = "Значит что успешно удалили")})
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> delete(@Parameter(description = "Это id person который хотим удалить") @PathVariable("id") Long id){
+    public ResponseEntity<HttpStatus> delete(@Parameter(description = "Это id person который хотим удалить") @PathVariable("id") Long id) {
         personService.deletePersonById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
