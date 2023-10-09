@@ -41,10 +41,7 @@ public class PersonController {
     @GetMapping("/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable("id") Long id) {
         Optional<Person> person = personService.getPersonById(id);
-        if (person.isPresent()) {
-            return new ResponseEntity<>(person.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.CONFLICT);
+        return person.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.CONFLICT));
     }
 
     @PostMapping

@@ -1,9 +1,12 @@
 package com.tms.service;
 
 import com.tms.domain.Person;
+import com.tms.domain.Role;
 import com.tms.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +28,8 @@ public class PersonService {
     }
 
     public Boolean createPerson(Person person) {
+        person.setCreated(Timestamp.valueOf(LocalDateTime.now()));
+        person.setRole(Role.USER);
         return personRepository.create(person);
     }
 

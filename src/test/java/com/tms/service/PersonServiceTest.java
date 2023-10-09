@@ -29,8 +29,6 @@ public class PersonServiceTest {
     @Mock
     PersonRepository personRepository;
 
-    //TODO:Security
-
     static List<Person> personList = null;
     static Person person = null;
 
