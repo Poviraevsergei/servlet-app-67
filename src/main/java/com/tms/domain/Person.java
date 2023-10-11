@@ -8,8 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import jakarta.persistence.TableGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Max;
@@ -23,7 +21,7 @@ import java.sql.Timestamp;
 
 @Data
 @Component
-@Entity(name = "person") // с какой таблицей хотим подружить
+@Entity(name = "person")
 public class Person {
     @Id
     @SequenceGenerator(name = "person_generator", sequenceName = "person_id_seq", allocationSize = 1)
@@ -42,10 +40,10 @@ public class Person {
     private Integer age;
     @Column(name = "is_married")
     private Boolean isMarried;
-    @Temporal(TemporalType.TIMESTAMP) //из строки в timestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created")
     private Timestamp created;
     @Column(name = "person_role")
-    @Enumerated(EnumType.STRING) //из строки в enum
+    @Enumerated(EnumType.STRING)
     private Role role;
 }
