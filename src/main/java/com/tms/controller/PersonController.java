@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -44,6 +45,12 @@ public class PersonController {
         return person.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.CONFLICT));
     }
 
+    @GetMapping("/findByAge")
+    public ResponseEntity<List<Person>> findAllByAge(@RequestParam("age") Integer age) {
+        List<Person> persons = personService.findAllByAge(age);
+        return new ResponseEntity<>(persons, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<HttpStatus> create(@RequestBody Person person) {
         return new ResponseEntity<>(personService.createPerson(person) ? HttpStatus.CREATED : HttpStatus.CONFLICT);
@@ -52,6 +59,12 @@ public class PersonController {
     @PutMapping
     public ResponseEntity<HttpStatus> update(@RequestBody Person person) {
         return new ResponseEntity<>(personService.updatePerson(person) ? HttpStatus.NO_CONTENT : HttpStatus.CONFLICT);
+    }
+
+    @PutMapping("/{age}/{id}")
+    public ResponseEntity<HttpStatus> updateAge(@PathVariable Integer age, @PathVariable Long id) {
+        personService.updateAge(age, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Operation(summary = "Удаляет пользователя из бд",
