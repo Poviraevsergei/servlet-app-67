@@ -1,6 +1,7 @@
 package com.tms.hibernate_lesson;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,12 +16,13 @@ import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.ManyToAny;
 
 import java.util.Collection;
 
 @Data
-@ToString(exclude = "pages")
-@EqualsAndHashCode(exclude = "pages")
+@ToString(exclude = {"pages", "authors"})
+@EqualsAndHashCode(exclude = {"pages", "authors"})
 @Entity(name = "books")
 public class Book {
     @SequenceGenerator(name = "books_generator", sequenceName = "books_id_seq", allocationSize = 1)
@@ -31,6 +33,10 @@ public class Book {
     @Column(name = "book_name")
     private String bookName;
 
-    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
     private Collection<Page> pages;
+
+    @JsonBackReference
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
+    private Collection<Author> authors;
 }
