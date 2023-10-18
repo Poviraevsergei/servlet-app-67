@@ -21,8 +21,8 @@ import org.hibernate.annotations.ManyToAny;
 import java.util.Collection;
 
 @Data
-@ToString(exclude = {"pages", "authors"})
-@EqualsAndHashCode(exclude = {"pages", "authors"})
+@ToString(exclude = {"authors"})
+@EqualsAndHashCode(exclude = {"authors"})
 @Entity(name = "books")
 public class Book {
     @SequenceGenerator(name = "books_generator", sequenceName = "books_id_seq", allocationSize = 1)
@@ -33,10 +33,6 @@ public class Book {
     @Column(name = "book_name")
     private String bookName;
 
-    @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
-    private Collection<Page> pages;
-
-    @JsonBackReference
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
     private Collection<Author> authors;
 }

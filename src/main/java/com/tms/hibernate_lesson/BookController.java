@@ -13,15 +13,16 @@ import java.util.List;
 public class BookController {
 
     private final BookRepository bookRepository;
+    private final HibernateMapper hibernateMapper;
 
-    @Autowired
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, HibernateMapper hibernateMapper) {
         this.bookRepository = bookRepository;
+        this.hibernateMapper = hibernateMapper;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable int id) {
-        Book book = bookRepository.findById(id);
+        Book book = hibernateMapper.getNormalBook(bookRepository.findById(id));
         return new ResponseEntity<>(book, HttpStatus.OK);
     }
 

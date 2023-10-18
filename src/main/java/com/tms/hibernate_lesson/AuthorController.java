@@ -13,16 +13,17 @@ import java.util.List;
 public class AuthorController {
 
     private final AuthorRepository authorRepository;
+    private final HibernateMapper hibernateMapper;
 
-    @Autowired
-    public AuthorController(AuthorRepository authorRepository) {
+    public AuthorController(AuthorRepository authorRepository, HibernateMapper hibernateMapper) {
         this.authorRepository = authorRepository;
+        this.hibernateMapper = hibernateMapper;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Author> getAuthorById(@PathVariable int id) {
-        Author author = authorRepository.findById(id);
-        return new ResponseEntity<>(author,HttpStatus.OK);
+        Author author = hibernateMapper.getNormalAuthor(authorRepository.findById(id));
+        return new ResponseEntity<>(author, HttpStatus.OK);
     }
 
     @GetMapping
