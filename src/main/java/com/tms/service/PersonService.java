@@ -1,7 +1,6 @@
 package com.tms.service;
 
 import com.tms.domain.Person;
-import com.tms.domain.Role;
 import com.tms.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,6 @@ public class PersonService {
 
     public Boolean createPerson(Person person) {
         try {
-            person.setRole(Role.USER);
             person.setCreated(Timestamp.valueOf(LocalDateTime.now()));
             personRepository.save(person);
             log.info(String.format("Person with first name %s created!", person.getFirstName()));
