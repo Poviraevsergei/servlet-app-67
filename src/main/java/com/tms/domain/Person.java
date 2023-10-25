@@ -32,9 +32,11 @@ public class Person {
     @Size(min = 2, max = 20)
     @Column(name = "first_name")
     private String firstName;
+
     @Pattern(regexp = "[A-z]*")
     @Column(name = "second_name")
     private String secondName;
+
     @Min(value = 18)
     @Max(value = 120)
     @Column(name = "age")

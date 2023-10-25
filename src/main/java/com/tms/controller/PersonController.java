@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +36,10 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Person>> getAll() {
+    public ResponseEntity<List<Person>> getAll(Principal principal) {
+        //How to find login 1.Principal 2.SecurityContext
+        System.out.println(principal.getName());
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
         List<Person> resultList = personService.getAll();
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }

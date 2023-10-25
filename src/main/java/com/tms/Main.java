@@ -23,4 +23,8 @@ public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
+
+    //TODO: как доставать пользователей из секьюрного контекста
+    //TODO: to admin
+    //TODO: JWT
 }

@@ -10,9 +10,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 @Entity(name = "security_credentials")
 @Data
+@Component
 public class SecurityCredentials {
     @Id
     @SequenceGenerator(name = "security_generator", sequenceName = "security_id_seq", allocationSize = 1)
