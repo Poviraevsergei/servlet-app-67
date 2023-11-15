@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
@@ -33,9 +34,9 @@ public class Person {
     @Column(name = "first_name")
     private String firstName;
 
-    @Pattern(regexp = "[A-z]*")
+    @Pattern(regexp = "[A-z]+")
     @Column(name = "second_name")
-    private String secondName;
+    private String secondName; //Adolf
 
     @Min(value = 18)
     @Max(value = 120)

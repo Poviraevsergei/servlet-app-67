@@ -17,14 +17,20 @@ public class ExceptionResolver {
     }
 
     @ExceptionHandler(UserFromDatabaseNotFound.class)
-    public ResponseEntity<HttpStatus> userFromDatabaseNotFoundException(Exception e){
+    public ResponseEntity<HttpStatus> userFromDatabaseNotFoundException(Exception e) {
         log.info(String.valueOf(e));
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(SameUserInDatabaseException.class)
-    public ResponseEntity<HttpStatus> sameUserInDatabaseException(Exception e){
+    public ResponseEntity<HttpStatus> sameUserInDatabaseException(Exception e) {
         log.info(String.valueOf(e));
         return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(NoAccessByIdException.class)
+    public ResponseEntity<HttpStatus> noAccessByIdException(Exception e) {
+        log.info(String.valueOf(e));
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 }

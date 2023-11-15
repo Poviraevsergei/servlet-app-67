@@ -16,4 +16,6 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     void updateAgeById(Integer age, Long id);
 
     List<Person> findAllByAge(Integer age);
+
+
 }

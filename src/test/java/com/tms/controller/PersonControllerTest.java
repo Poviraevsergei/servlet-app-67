@@ -1,11 +1,10 @@
 package com.tms.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tms.domain.Person;
+import com.tms.security.filter.JwtAuthenticationFilter;
 import com.tms.service.PersonService;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -33,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = PersonController.class)
-//@AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureMockMvc(addFilters = false)
 public class PersonControllerTest {
     @Autowired
     MockMvc mockMvc;
@@ -41,8 +39,8 @@ public class PersonControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
-  /*  @MockBean
-    JwtAuthenticationFilter jaf;*/
+    @MockBean
+    JwtAuthenticationFilter jaf;
 
     @MockBean
     PersonService personService;

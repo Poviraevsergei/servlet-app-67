@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=root
+    image: postgres:12.16-bullseye
+    networks:
+      - backend
+
+  app:
+    container_name: app
+    image: poviraevsergei/banan:v3
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+    networks:
+      - backend
+    depends_on:
+      - db
+
+networks:
+  backend:
+    driver: bridge

@@ -22,9 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
+        //TODO:isMarried DB?
+        //TODO: Test
     }
-
-    //TODO: как доставать пользователей из секьюрного контекста
-    //TODO: to admin
-    //TODO: JWT
 }

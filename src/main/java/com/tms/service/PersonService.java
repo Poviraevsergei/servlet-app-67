@@ -1,8 +1,12 @@
 package com.tms.service;
 
 import com.tms.domain.Person;
+import com.tms.exception_resolver.NoAccessByIdException;
 import com.tms.repository.PersonRepository;
+import com.tms.security.service.SecurityService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,21 +17,23 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class PersonService {
 
     private final PersonRepository personRepository;
-
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
+    private final SecurityService securityService;
 
     public List<Person> getAll() {
         return personRepository.findAll();
     }
 
     public Optional<Person> getPersonById(Long id) {
-        return personRepository.findById(id);
+        if (securityService.checkAccessById(id)) {
+            return personRepository.findById(id);
+        }
+        throw new NoAccessByIdException(id, SecurityContextHolder.getContext().getAuthentication().getName());
     }
+
 
     public Boolean createPerson(Person person) {
         try {
@@ -57,11 +63,11 @@ public class PersonService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void updateAge(Integer age, long id){
+    public void updateAge(Integer age, long id) {
         personRepository.updateAgeById(age, id);
     }
 
-    public List<Person> findAllByAge(Integer age){
+    public List<Person> findAllByAge(Integer age) {
         return personRepository.findAllByAge(age);
     }
 }

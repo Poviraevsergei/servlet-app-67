@@ -7,10 +7,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.extern.slf4j.Slf4j;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+@SecurityRequirement(name = "Bearer Authentication")
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -36,10 +38,7 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Person>> getAll(Principal principal) {
-        //How to find login 1.Principal 2.SecurityContext
-        System.out.println(principal.getName());
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+    public ResponseEntity<List<Person>> getAll() {
         List<Person> resultList = personService.getAll();
         return new ResponseEntity<>(resultList, HttpStatus.OK);
     }
